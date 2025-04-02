@@ -15,11 +15,11 @@ public class BaseEntity {
 
     @CreatedDate // 생성 시점 자동 기록
     @Column(updatable = false) // 생성일은 최초 등록만 하면 되기때문에 최신화 필요가 없음
-    @Temporal(TemporalType.TIMESTAMP) // 날짜 세부타입 지정 ※ 생략가능
+//    @Temporal(TemporalType.TIMESTAMP) // 날짜 세부타입 지정 ※ 생략가능
     private LocalDateTime createdAt;
 
     @LastModifiedDate // 수정 시점 자동 기록
-    @Temporal(TemporalType.TIMESTAMP) // 날짜 세부타입 지정 ※ 생략가능
+//    @Temporal(TemporalType.TIMESTAMP) // 날짜 세부타입 지정 ※ 생략가능
     private LocalDateTime updatedAt;
 
 }
