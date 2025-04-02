@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+
 @Getter
 @MappedSuperclass // 상속받는 Entity에 공통 매핑 정보 제공
 @EntityListeners(AuditingEntityListener.class) //Entity를 DB에 적용하기 전, 커스텀 콜백
