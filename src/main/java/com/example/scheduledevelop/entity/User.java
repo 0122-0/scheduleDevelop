@@ -20,4 +20,15 @@ public class User extends BaseEntity{
     private String password; //비밀 번호
 
     //BaseEntity 상속 받아서 작성일과 수정일 존재
+
+    //Entity어노테이션이 붙은 클래스는 기본 생성자가 필요
+    public User() {
+    }
+
+    // id는 자동생성 되서 따로 설정하지 않음
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

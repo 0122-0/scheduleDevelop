@@ -20,4 +20,15 @@ public class Schedule extends BaseEntity{
     @ManyToOne //연관관계
     @JoinColumn(name = "user_id") // 유저의 id로 유저 고유 식별자 연관관계설정
     private User user; // 유저 고유 식별자
+
+    //Entity어노테이션이 붙은 클래스는 기본 생성자가 필요
+    public Schedule() {
+    }
+
+    // id는 자동생성 되서 따로 설정하지 않음
+    public Schedule(String todotitle, String todo, User user) {
+        this.todotitle = todotitle;
+        this.todo = todo;
+        this.user = user;
+    }
 }
