@@ -2,6 +2,7 @@ package com.example.scheduledevelop.controller;
 
 import com.example.scheduledevelop.dto.SignUpRequestDto;
 import com.example.scheduledevelop.dto.SignUpResponseDto;
+import com.example.scheduledevelop.dto.UpdatePasswordDto;
 import com.example.scheduledevelop.dto.UserResponseDto;
 import com.example.scheduledevelop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,4 +40,13 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updatePassword(
+            @PathVariable  Long id,
+            @RequestBody UpdatePasswordDto requestDto
+    ){
+        userService.updatePassword(id, requestDto.getOldPassword(), requestDto.getNewPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
