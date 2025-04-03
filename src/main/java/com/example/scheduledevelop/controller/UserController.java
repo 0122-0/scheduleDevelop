@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/schedules")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 
 public class UserController {
@@ -46,6 +46,15 @@ public class UserController {
             @RequestBody UpdatePasswordDto requestDto
     ){
         userService.updatePassword(id, requestDto.getOldPassword(), requestDto.getNewPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+
+    public  ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+
+        userService.deleteUser(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

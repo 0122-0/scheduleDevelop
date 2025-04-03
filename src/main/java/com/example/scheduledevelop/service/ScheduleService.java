@@ -37,9 +37,11 @@ public class ScheduleService {
 
     }
 
-    public void delete(Long id) {
+    public void deleteSchedule(Long id) {
+
         Schedule findshedule = scheduleRepository.findByIdOrElseThrow(id);
 
         scheduleRepository.delete(findshedule);
     }
 }
+
