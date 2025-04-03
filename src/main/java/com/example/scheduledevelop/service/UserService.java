@@ -1,5 +1,6 @@
 package com.example.scheduledevelop.service;
 
+import com.example.scheduledevelop.dto.LoginResponseDto;
 import com.example.scheduledevelop.dto.SignUpResponseDto;
 import com.example.scheduledevelop.dto.UserResponseDto;
 import com.example.scheduledevelop.entity.User;
@@ -32,7 +33,7 @@ public class UserService {
     public UserResponseDto findById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
 
-        if (optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Does not exists id : " + id);
         }
 
@@ -46,7 +47,7 @@ public class UserService {
 
         User findUser = userRepository.findByIdOrElseThrow(id);
 
-        if(!findUser.getPassword().equals(oldPassword)) {
+        if (!findUser.getPassword().equals(oldPassword)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치 하지 않습니다.");
         }
 
@@ -59,4 +60,23 @@ public class UserService {
 
         userRepository.delete(findUser);
     }
+
+    public LoginResponseDto login(String email, String password) {
+        // step 1. email 에 맞는 USER 있는지 확인
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NO_CONTENT,
+                                "Does not exist email = " + email
+                        )
+                );
+        //step 2 비밀번호 맞는지 확인 하기
+        if (!user.getPassword().equals(password)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치 하지 않습니다.");
+        }
+       
+
+        return new LoginResponseDto(user.getId());
+    }
+
 }
