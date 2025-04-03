@@ -1,12 +1,16 @@
 package com.example.scheduledevelop.service;
 
 import com.example.scheduledevelop.dto.ScheduleResponseDto;
+import com.example.scheduledevelop.dto.UpdateScheduleTodoTitleDto;
 import com.example.scheduledevelop.entity.Schedule;
 import com.example.scheduledevelop.entity.User;
 import com.example.scheduledevelop.repository.ScheduleRepository;
 import com.example.scheduledevelop.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,6 +46,18 @@ public class ScheduleService {
         Schedule findshedule = scheduleRepository.findByIdOrElseThrow(id);
 
         scheduleRepository.delete(findshedule);
+    }
+
+    @Transactional
+    public void updateTodoTitle(Long id, String oldTodoTitle, String NewTodoTitle) {
+
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        if(!findSchedule.getTodotitle().equals(oldTodoTitle)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치 하지 않습니다.");
+        }
+
+        findSchedule.updateTodoTitle(NewTodoTitle);
     }
 }
 
