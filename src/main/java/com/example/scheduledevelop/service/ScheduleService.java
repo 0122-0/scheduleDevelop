@@ -21,9 +21,15 @@ public class ScheduleService {
     private final UserRepository userRepository;
     private final ScheduleRepository scheduleRepository;
 
-    public ScheduleResponseDto save(String todotitle, String todo, String name) {
+    public ScheduleResponseDto save(String todotitle, String todo, Long userId) {
 
-        User findUser = userRepository.findUserByNameOrElseThrow(name);
+        User findUser = userRepository.findById(userId)
+                .orElseThrow(() ->
+                new ResponseStatusException(
+                        HttpStatus.UNAUTHORIZED,
+                        "Does not exist userId = " + userId
+                )
+        );
 
         Schedule schedule = new Schedule(todotitle, todo);
         schedule.setUser(findUser);
@@ -41,20 +47,24 @@ public class ScheduleService {
 
     }
 
-    public void deleteSchedule(Long id) {
-
-        Schedule findshedule = scheduleRepository.findByIdOrElseThrow(id);
-
-        scheduleRepository.delete(findshedule);
-    }
-
-    @Transactional
-    public void updateTodoTitle(Long id, String oldTodoTitle, String NewTodoTitle) {
+    public void deleteSchedule(Long id, Long userId) {
 
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
 
-        if(!findSchedule.getTodotitle().equals(oldTodoTitle)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치 하지 않습니다.");
+        if(!findSchedule.getUser().getId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "작성자 정보가 일치 하지않습니다.");
+        }
+
+        scheduleRepository.delete(findSchedule);
+    }
+
+    @Transactional
+    public void updateTodoTitle(Long id, String NewTodoTitle, Long userId) {
+
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        if(!findSchedule.getUser().getId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "작성자 정보가 일치 하지않습니다.");
         }
 
         findSchedule.updateTodoTitle(NewTodoTitle);

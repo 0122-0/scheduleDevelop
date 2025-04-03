@@ -9,11 +9,10 @@ public class CreateScheduleRequestDto {
 
     private final String todo;
 
-    private final String name;
-    public CreateScheduleRequestDto(String todotitle, String todo, String name) {
+    public CreateScheduleRequestDto(String todotitle, String todo) {
         this.todotitle = todotitle;
         this.todo = todo;
-        this.name = name;
+
     }
 
 
