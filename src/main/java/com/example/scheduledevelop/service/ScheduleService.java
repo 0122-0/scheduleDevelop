@@ -36,4 +36,10 @@ public class ScheduleService {
                 .toList();
 
     }
+
+    public void delete(Long id) {
+        Schedule findshedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        scheduleRepository.delete(findshedule);
+    }
 }
