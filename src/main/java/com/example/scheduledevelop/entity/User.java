@@ -13,7 +13,7 @@ public class User extends BaseEntity{
     private Long id; // 서버에서 적용되는 임의 번호 아이디
 
     @Column(nullable = false) // null은 안되지만 동명이인으로 인한 unique 설정은 하지않음
-    private String name; // 유저이름
+    private String name; // 유저이름 이름은 같은데
 
     @Column(nullable = false, unique = true) // null 불가, 같은 이메일 사용 방지를 위한 unique설정
     private String email; // 유저 이메일
@@ -33,4 +33,6 @@ public class User extends BaseEntity{
         this.email = email;
         this.password = password;
     }
+
+
 }
