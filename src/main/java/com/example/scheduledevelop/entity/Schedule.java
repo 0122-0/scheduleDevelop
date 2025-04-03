@@ -28,9 +28,13 @@ public class Schedule extends BaseEntity{
     }
 
     // id는 자동생성 되서 따로 설정하지 않음
-    public Schedule(String todotitle, String todo, User user) {
+    public Schedule(String todotitle, String todo) {
         this.todotitle = todotitle;
         this.todo = todo;
+
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 }

@@ -16,4 +16,5 @@ public class SignUpRequestDto {
         this.email = email;
         this.password = password;
     }
+
 }
