@@ -5,14 +5,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.PatternMatchUtils;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 
 @Slf4j
 public class LoginFilter implements Filter {
 
-    private static final  String[] WHITE_LIST = {"/", "/user/signup", "/login"};
+    private static final  String[] WHITE_LIST = {"/", "/users/signup", "/login"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -29,7 +32,7 @@ public class LoginFilter implements Filter {
             HttpSession session = httpRequest.getSession(false);
 
             if(session == null || session.getAttribute(Const.LOGIN_USER) == null){
-                throw new RemoteException("로그인 해주세요");
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인 해주세요");
             }
 
             log.info("로그인에 성공했습니다.");

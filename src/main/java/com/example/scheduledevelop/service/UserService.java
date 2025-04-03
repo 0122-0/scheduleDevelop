@@ -66,7 +66,7 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
                         new ResponseStatusException(
-                                HttpStatus.NO_CONTENT,
+                                HttpStatus.UNAUTHORIZED,
                                 "Does not exist email = " + email
                         )
                 );
