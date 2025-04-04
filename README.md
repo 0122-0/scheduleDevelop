@@ -51,6 +51,8 @@
 
 ![develop schedule API](https://github.com/user-attachments/assets/18eafd2b-8bab-4c5a-a819-7113a8cdfb29)
 
+-SQL 스크립트[schedule.sql](schedule.sql)
+
 ---
 
 1️⃣ Lv 1. 일정 CRUD
